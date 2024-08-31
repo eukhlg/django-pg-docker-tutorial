@@ -17,7 +17,7 @@ pipeline {
                         dockerImage.push("${env.TAG_NAME}")
                         dockerImage.push('latest')
                     }
-                    }
+                    
                 }
             }
         }
