@@ -1,12 +1,16 @@
 pipeline {
     agent any
 
+    environment {
+        dockerImage = ''
+        registry = 'eukhlg/django'
+    }
     stages {
         stage('Build') {
             steps {
-                /*sh "echo $PAWD | docker login -u $UNAME --password-stdin"*/
-                sh 'docker build -t eukhlg/django .'
-                sh "docker push eukhlg/django:${TAG_NAME}"
+                script {
+                    dockerImage = docker.build registry
+                }
             }
         }
         stage('Test') {
