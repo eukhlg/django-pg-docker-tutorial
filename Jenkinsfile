@@ -14,8 +14,9 @@ pipeline {
                 }
                 script{
                     docker.withRegistry( '', registryCredential ){
-                        dockerImage.push(${env.TAG_NAME})
+                        dockerImage.push("${env.TAG_NAME}")
                         dockerImage.push('latest')
+                    }
                     }
                 }
             }
