@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: django-deploy
   labels:
-    app: django
+    app: django-deploy
 spec:
   selector:
     matchLabels:
@@ -18,7 +18,7 @@ spec:
       - name: django-container
         image: eukhlg/django:latest
         ports:
-          - containerPort: 80
+          - containerPort: 3003
         resources:
           limits:
             memory: 512Mi
@@ -26,3 +26,15 @@ spec:
           requests:
             memory: 256Mi
             cpu: "0.2"
+        env:
+        - name: DB_HOST
+          value: "postgres"
+        - name: DB_NAME
+          value: "tutorial-dev"
+        - name: DB_USER
+          value: "vinhle"
+        - name: DB_PASS
+          value: "password"
+        command: ["sh", "-c"]
+        args: ["python manage.py migrate && python manage.py runserver 0.0.0.0:3003"]
+        
