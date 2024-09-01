@@ -1,6 +1,6 @@
 app:
   image:
-    repository: myapp-image
+    repository: eukhlg/django
     tag: latest
   port: 3003
   env:
