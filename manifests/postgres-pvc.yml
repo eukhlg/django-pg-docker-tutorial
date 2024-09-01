@@ -8,3 +8,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/data/postgres"
