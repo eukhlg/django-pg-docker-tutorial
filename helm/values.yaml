@@ -1,0 +1,25 @@
+app:
+  image:
+    repository: myapp-image
+    tag: latest
+  port: 3003
+  env:
+    DB_HOST: db
+    DB_NAME: tutorial-dev
+    DB_USER: vinhle
+    DB_PASS: password
+  volumes:
+    - ./app:/app
+
+db:
+  image:
+    repository: postgres
+    tag: 13-alpine
+  port: 5432
+  env:
+    POSTGRES_DB: tutorial-dev
+    POSTGRES_USER: vinhle
+    POSTGRES_PASSWORD: password
+  volume:
+    name: tutorial-volume
+    size: 1Gi
