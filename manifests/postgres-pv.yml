@@ -9,8 +9,9 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   gcePersistentDisk: 
-    pdName: postgres-disk
-    fsType: ext4 
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/data/postgres"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -22,5 +23,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: "" 
+  storageClassName: standard
   volumeName: postgres-pv 
