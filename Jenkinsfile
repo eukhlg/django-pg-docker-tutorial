@@ -14,8 +14,10 @@ pipeline {
                 }
 
             }
-        stage('Push Docker Image')
+        }
+        stage('Push Docker Image') {
             steps {
+                script{
                     docker.withRegistry( '', registryCredential ){
                         dockerImage.push("${env.TAG_NAME}")
                         dockerImage.push('latest')
