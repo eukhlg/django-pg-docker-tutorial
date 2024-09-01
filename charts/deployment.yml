@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-deploy
+  labels:
+    app: django
+spec:
+  selector:
+    matchLabels:
+      app: django-pod
+  replicas: 2 # runs 2 pods created with template
+  template:
+    metadata:
+      labels:
+        app: django-pod
+    spec:
+      containers:
+      - name: django-container
+        image: eukhlg/django:latest
+        ports:
+          - containerPort: 80
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
