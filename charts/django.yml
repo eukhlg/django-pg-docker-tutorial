@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: django
+  labels:
+    app: django
+spec:
+  containers:
+  - name: django
+    image: eukhlg/django:latest
+    ports:
+    - containerPort: 80
