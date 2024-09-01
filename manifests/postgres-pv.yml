@@ -8,7 +8,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  gcePersistentDisk: 
   storageClassName: manual
   hostPath:
     path: "/mnt/data/postgres"
@@ -23,5 +22,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: standard
-  volumeName: postgres-pv 
+  volumeName: postgres-pv
