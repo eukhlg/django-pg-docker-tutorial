@@ -33,7 +33,7 @@ pipeline {
                 echo "Deploying to Kubernetes"
                 script{
                     withKubeConfig([namespace: "jenkins"]) {
-                    sh 'kubectl apply -f https://github.com/eukhlg/django-pg-docker-tutorial/tree/master/manifests'
+                    sh 'kubectl get configmap'
                     }
       
                 }
