@@ -26,8 +26,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy to Kubernetes') {
             steps {
+                script{
+                    kubernetesDeploy(configs: "./manifests.postgres-pv.yml", kubeconfigId: "Kubernetes")
+                    kubernetesDeploy(configs: "./manifests.postgres-deployment.yml", kubeconfigId: "Kubernetes")
+                    kubernetesDeploy(configs: "./manifests.postgres-service.yml", kubeconfigId: "Kubernetes")
+                    kubernetesDeploy(configs: "./manifests.app-deployment.yml", kubeconfigId: "Kubernetes")
+                    kubernetesDeploy(configs: "./manifests.app-service.yml", kubeconfigId: "Kubernetes")
+                }
                 echo 'Deploying....'
             }
         }
