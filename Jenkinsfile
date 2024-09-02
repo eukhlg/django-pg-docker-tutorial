@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'jenkins-agent'
-    }
+    agent any
 
     environment {
         dockerImage = ''
@@ -34,8 +32,8 @@ pipeline {
             steps {
                 echo "Deploying to Kubernetes"
                 script{
-                    withKubeConfig([namespace: "jenkins"]) {
-                    sh 'kubectl get configmap'
+                    withKubeConfig([credentialsId: 'Kubernetes', serverUrl: 'https://172.20.1.14:6443']) {
+                    sh 'kubectl apply -f https://github.com/eukhlg/django-pg-docker-tutorial/tree/master/manifests'
                     }
       
                 }
