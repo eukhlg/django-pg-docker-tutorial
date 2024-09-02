@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo "Deploying to Kubernetes"
                 script{
-                    withKubeConfig([namespace: "jenkins"]) {
+                    withKubeConfig([credentialsId: 'Kubernetes', serverurl: 'https://172.20.1.14:6433,'namespace: "jenkins"]) {
                     sh 'kubectl get configmap'
                     }
       
