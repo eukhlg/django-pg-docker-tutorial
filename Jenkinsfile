@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
+                echo "Building Docker Image..."
                 script {
                     dockerImage = docker.build registry
                 }
@@ -18,6 +19,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script{
+                    echo "Pushing Docker Image..."
                     docker.withRegistry( '', registryCredential ){
                         dockerImage.push("${env.TAG_NAME}")
                         dockerImage.push('latest')
@@ -28,6 +30,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
+                echo "Deploying to Kubernetes"
                 script{
                     kubernetesDeploy(configs: "./manifests.postgres-pv.yml", kubeconfigId: "Kubernetes")
                     kubernetesDeploy(configs: "./manifests.postgres-deployment.yml", kubeconfigId: "Kubernetes")
@@ -35,7 +38,6 @@ pipeline {
                     kubernetesDeploy(configs: "./manifests.app-deployment.yml", kubeconfigId: "Kubernetes")
                     kubernetesDeploy(configs: "./manifests.app-service.yml", kubeconfigId: "Kubernetes")
                 }
-                echo 'Deploying....'
             }
         }
     }
