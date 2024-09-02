@@ -32,11 +32,10 @@ pipeline {
             steps {
                 echo "Deploying to Kubernetes"
                 script{
-                    kubernetesDeploy(configs: "./manifests.postgres-pv.yml", kubeconfigId: "Kubernetes")
-                    kubernetesDeploy(configs: "./manifests.postgres-deployment.yml", kubeconfigId: "Kubernetes")
-                    kubernetesDeploy(configs: "./manifests.postgres-service.yml", kubeconfigId: "Kubernetes")
-                    kubernetesDeploy(configs: "./manifests.app-deployment.yml", kubeconfigId: "Kubernetes")
-                    kubernetesDeploy(configs: "./manifests.app-service.yml", kubeconfigId: "Kubernetes")
+                    withKubeCredentials() {
+                    sh 'kubectl apply -f https://github.com/eukhlg/django-pg-docker-tutorial/tree/master/manifests'
+                    }
+      
                 }
             }
         }
