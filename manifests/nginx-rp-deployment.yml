@@ -20,8 +20,8 @@ spec:
           - containerPort: 80
         volumeMounts:
         - name: nginx-rp-config
-          mountPath: /etc/nginx
-          subPath: nginx.conf
+          mountPath: /etc/nginx/conf.d
+          subPath: default.conf
         - name: nginx-rp-secret
           mountPath: /etc/nginx/ssl
         resources:
