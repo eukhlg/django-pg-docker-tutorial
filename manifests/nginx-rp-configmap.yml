@@ -5,6 +5,10 @@ metadata:
   namespace: default
 data:
   nginx.conf: |
+    events {
+      worker_connections 1024;
+    }
+
     http {
         server {
           listen 80;
