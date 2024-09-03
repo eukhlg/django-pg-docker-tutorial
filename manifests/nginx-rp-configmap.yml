@@ -18,38 +18,47 @@ data:
     }
 
     http {
-      log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                        '$status $body_bytes_sent "$http_referer" '
-                        '"$http_user_agent" "$http_x_forwarded_for"';
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
 
-      access_log  /var/log/nginx/access.log  main;
-      server {
-        listen 80;
+    access_log  /var/log/nginx/access.log  main;
+    server {
+      listen 443 ssl;
 
-        # Example: Proxy requests to a service within the cluster
-        location / {
-          proxy_pass http://django-service.default.svc.k8s.app.local:3003;
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-        }
+      ssl_certificate /etc/nginx/ssl/fullchain.pem;
+      ssl_certificate_key /etc/nginx/ssl/private.key;
 
-        # Optional: Add more locations for different services or paths
-        # location /other-path/ {
-        #   proxy_pass http://another-service.default.svc.cluster.local:9090;
-        # }
+      # Example: Proxy requests to a service within the cluster
+      location / {
+        proxy_pass http://django-service.default.svc.k8s.app.local:3003;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+      }
 
-          
-        }
-      sendfile            on;
-      tcp_nopush          on;
-      keepalive_timeout   65;
-      types_hash_max_size 4096;
+      # Optional: Add more locations for different services or paths
+      # location /other-path/ {
+      #   proxy_pass http://another-service.default.svc.cluster.local:9090;
+      # }
 
-      include             /etc/nginx/mime.types;
-      default_type        application/octet-stream;
+        
+    }
 
+    sendfile            on;
+    tcp_nopush          on;
+    keepalive_timeout   65;
+    types_hash_max_size 4096;
 
-      include /etc/nginx/conf.d/*.conf;
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    include /etc/nginx/conf.d/*.conf;
+
+    # Optional: Redirect HTTP to HTTPS
+    listen 80;
+    server_name app.cloudis.me;
+    return 301 https://$server_name$request_uri;
+
     }
