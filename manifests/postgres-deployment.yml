@@ -21,14 +21,25 @@ spec:
         - containerPort: 5432
         env:
         - name: POSTGRES_DB
-          value: "tutorial-dev"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_name
         - name: POSTGRES_USER
-          value: "vinhle"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_user
         - name: POSTGRES_PASSWORD
-          value: "password"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_pass
         volumeMounts:
         - name: postgres-storage
           mountPath: /var/lib/postgresql/data
+        - name: sfdata
+          mountPath: "/etc/sfdata"
         resources:
           limits:
             memory: 512Mi
@@ -40,3 +51,6 @@ spec:
       - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-pvc
+      - name: sfdata
+        secret:
+          secretName: db-cred

@@ -18,7 +18,11 @@ spec:
       - name: django-container
         image: eukhlg/django:latest
         ports:
-          - containerPort: 3003
+        - containerPort: 3003
+        volumeMounts:
+        - name: sfdata
+          mountPath: "/etc/sfdata"
+          readOnly: true
         resources:
           limits:
             memory: 512Mi
@@ -28,13 +32,28 @@ spec:
             cpu: "0.2"
         env:
         - name: DB_HOST
-          value: "postgres"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_host
         - name: DB_NAME
-          value: "tutorial-dev"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_name
         - name: DB_USER
-          value: "vinhle"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_user
         - name: DB_PASS
-          value: "password"
+          valueFrom:
+            secretKeyRef:
+              name: db-cred
+              key: db_pass
         command: ["sh", "-c"]
         args: ["python manage.py migrate && python manage.py runserver 0.0.0.0:3003"]
-        
+      volumes:
+      - name: sfdata
+        secret:
+          secretName: db-cred
