@@ -36,7 +36,7 @@ pipeline {
                 script{
                     
                     withKubeConfig([credentialsId: 'Kubernetes', serverUrl: 'https://172.20.1.14:6443']) {
-                    sh 'kubectl apply -f ./manifests/*.yml --validate=false'
+                    sh 'kubectl apply -f ./manifests/ --validate=false'
 
                     }
       
