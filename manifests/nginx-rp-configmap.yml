@@ -18,8 +18,8 @@ data:
         
         listen 443 ssl;
 
-        ssl_certificate /etc/nginx/ssl/fullchain.pem;
-        ssl_certificate_key /etc/nginx/ssl/private.key;
+        ssl_certificate /etc/nginx/ssl/tls.crt;
+        ssl_certificate_key /etc/nginx/ssl/tls.key;
 
         # Example: Proxy requests to a service within the cluster
         location / {
