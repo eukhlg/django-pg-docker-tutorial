@@ -21,6 +21,6 @@ spec:
   # Optional: Define TLS settings if you want to use HTTPS
   tls:
   - hosts:
-    - '*.cloudis.me'
+    - "*.cloudis.me"
     - cloudis.me
     secretName: nginx-ingress-tls
