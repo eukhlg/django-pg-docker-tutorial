@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-nginx-rp-deploy
   namespace: default
 spec:
-  replicas: {{ .Values.nginx-rp.replicas }}
+  replicas: {{ .Values.nginx.replicas }}
   selector:
     matchLabels:
       app: {{ .Release.Name }}-nginx-rp-pod

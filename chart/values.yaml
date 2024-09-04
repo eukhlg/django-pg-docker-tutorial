@@ -4,5 +4,5 @@ app:
 db:
  replicas: 2
 
-nginx-rp:
+nginx:
  replicas: 2
