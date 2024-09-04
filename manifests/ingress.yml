@@ -19,7 +19,7 @@ spec:
               number: 3003
 
   # Optional: Define TLS settings if you want to use HTTPS
-  #tls:
-  #- hosts:
-  #  - app.cloudis.me
-  #  secretName: nginx-rp-secret
+  tls:
+  - hosts:
+    - app.cloudis.me
+    secretName: nginx-ingress-tls
