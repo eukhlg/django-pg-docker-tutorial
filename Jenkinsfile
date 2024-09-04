@@ -47,16 +47,19 @@ pipeline {
         
         stage('Helm Lint') {
             steps {
-                // Lint the Helm chart to ensure there are no issues
+                echo "Linting the Helm chart to ensure there are no issues..."
                 sh 'helm lint ./chart'
             }
         }
 
-        steps {
-                // Deploy the Helm chart
-                sh '''
-                    helm upgrade --install django ./chart \
-                    --values ./values.yaml
-                '''
+        stage('Deploy Helm Chart') {
+            steps {
+                
+                echo "Deploying the Helm chart..."
+                withKubeConfig([credentialsId: 'Kubernetes', serverUrl: 'https://172.20.1.14:6443']) {
+                sh 'helm upgrade --install django ./chart --values ./values.yaml'
+                
+            }
+        }           
     }
 }
