@@ -15,7 +15,7 @@ spec:
         app: {{ .Release.Name }}-postgres-pod
     spec:
       containers:
-      - name: {{ .Release.Name }}-postgres-container
+      - name: postgres
         image: postgres:13-alpine
         ports:
         - containerPort: 5432
