@@ -6,6 +6,7 @@ pipeline {
         registry = 'eukhlg/django'
         registryCredential = 'Dockerhub'
     }
+    
     stages {
         stage('Build Docker Image') {
             steps {
@@ -59,7 +60,8 @@ pipeline {
                 withKubeConfig([credentialsId: 'Kubernetes', serverUrl: 'https://172.20.1.14:6443']) {
                 sh 'helm upgrade --install django ./chart --values ./values.yaml'
                 
-            }
-        }           
+                }
+            }           
+        }
     }
 }
