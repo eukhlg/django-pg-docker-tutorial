@@ -58,7 +58,7 @@ pipeline {
                 
                 echo "Deploying the Helm chart..."
                 withKubeConfig([credentialsId: 'Kubernetes', serverUrl: 'https://172.20.1.14:6443']) {
-                sh 'helm upgrade --install django ./chart --values ./values.yaml'
+                sh 'helm upgrade --install django ./chart --values ./Values.yaml'
                 
                 }
             }           
