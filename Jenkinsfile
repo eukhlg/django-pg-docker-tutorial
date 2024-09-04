@@ -30,6 +30,7 @@ pipeline {
                 }
             }
         }
+        /*
         stage('Deploy to Kubernetes') {
             steps {
                 echo "Deploying to Kubernetes"
@@ -41,7 +42,21 @@ pipeline {
                     }
       
                 }
+            } 
+        } */
+        
+        stage('Helm Lint') {
+            steps {
+                // Lint the Helm chart to ensure there are no issues
+                sh 'helm lint ./chart'
             }
         }
+
+        steps {
+                // Deploy the Helm chart
+                sh '''
+                    helm upgrade --install django ./chart \
+                    --values ./values.yaml
+                '''
     }
 }
