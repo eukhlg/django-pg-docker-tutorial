@@ -1,0 +1,8 @@
+app:
+  replicas: 2
+
+db:
+ replicas: 2
+
+nginx-rp:
+ replicas: 2

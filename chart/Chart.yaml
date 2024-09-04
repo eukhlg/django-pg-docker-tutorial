@@ -1,0 +1,4 @@
+apiVersion: v2
+name: Django
+description: A Helm chart for deploying the Django app, database and NGINX-reverse proxy
+version: 0.1.0
