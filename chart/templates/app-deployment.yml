@@ -32,7 +32,7 @@ spec:
             cpu: "0.2"
         env:
         - name: DB_HOST
-          value: postgres
+          value: {{ .Release.Name }}-postgres-service
         - name: DB_NAME
           valueFrom:
             secretKeyRef:
