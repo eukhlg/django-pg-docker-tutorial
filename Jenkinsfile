@@ -31,20 +31,6 @@ pipeline {
                 }
             }
         }
-        /*
-        stage('Deploy to Kubernetes') {
-            steps {
-                echo "Deploying to Kubernetes"
-                script{
-                    
-                    withKubeConfig([credentialsId: 'Kubernetes', serverUrl: 'https://172.20.1.14:6443']) {
-                    sh 'kubectl apply -f ./manifests/ --validate=false'
-
-                    }
-      
-                }
-            } 
-        } */
         
         stage('Helm Lint') {
             steps {
