@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: app.cloudis.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: django-service
+            port:
+              number: 3003
+
+  # Optional: Define TLS settings if you want to use HTTPS
+  tls:
+  - hosts:
+    - app.cloudis.me
+    secretName: nginx-rp-secret
