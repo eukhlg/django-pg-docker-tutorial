@@ -22,4 +22,5 @@ spec:
   tls:
   - hosts:
     - '*.cloudis.me'
+    - cloudis.me
     secretName: nginx-ingress-tls
