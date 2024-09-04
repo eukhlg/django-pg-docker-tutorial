@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: example-ingress
+  name: nginx-ingress
   namespace: default
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -19,7 +19,7 @@ spec:
               number: 3003
 
   # Optional: Define TLS settings if you want to use HTTPS
-  tls:
-  - hosts:
-    - app.cloudis.me
-    secretName: nginx-rp-secret
+  #tls:
+  #- hosts:
+  #  - app.cloudis.me
+  #  secretName: nginx-rp-secret
