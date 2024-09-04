@@ -1,4 +1,2 @@
 /app/venv
-manifests/nginx-rp-configmap.yml
-manifests/nginx-rp-deployment.yml
-manifests/nginx-rp-service.yml
+manifests/ingress.yml
